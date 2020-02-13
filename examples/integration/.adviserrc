@@ -6,7 +6,8 @@
     "webhint/hints": [
       "error",
       {
-        options: 'options'
+        ignore: [http-cache],
+        minSeverity: 2,
       }
     ]
   },

@@ -95,7 +95,8 @@
   "main": "src/index.js",
   "name": "adviser-plugin-webhint",
   "peerDependencies": {
-    "hint": "^6.x"
+    "hint": "^6.x",
+    "chalk": "^3.x"
   },
   "scripts": {
     "audit": "audit-ci --high",

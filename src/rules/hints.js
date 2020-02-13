@@ -1,6 +1,5 @@
-'use strict';
-
 const Adviser = require('adviser');
+const chalk = require('chalk');
 
 class Hints extends Adviser.Rule {
   constructor(context) {
@@ -10,10 +9,18 @@ class Hints extends Adviser.Rule {
 
   async run(sandbox) {
     const report = {};
+    const { options } = sandbox.ruleContext;
     this.results.forEach(result => {
-      report.message = `${result.problems.length} webhint hint${result.problems.length > 1 ? 's' : ''} failed`;
-      result.problems.forEach(problem => {
-        report.verbose += `${problem.category}: ${problem.message} - ${problem.severity}\n  `;
+      const problems = result.problems.filter(
+        problem => problem.severity >= options.minSeverity && !options.ignore.includes(problem.hintId)
+      );
+
+      report.message = `${problems.length} webhint hint${problems.length > 1 ? 's' : ''} failed`;
+
+      problems.forEach(problem => {
+        report.verbose += `${chalk.bold(problem.hintId)}:\n\t${problem.message}\n\tSeverity:${chalk.bold(
+          problem.severity
+        )}\n\n  `;
       });
     });
     sandbox.report(report);

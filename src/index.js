@@ -7,6 +7,7 @@ const requireIndex = require('requireindex');
 const isURL = require('is-url');
 const Adviser = require('adviser');
 const Webhint = require('hint');
+
 const { Analyzer } = Webhint;
 
 class WebhintPlugin extends Adviser.Plugin {
