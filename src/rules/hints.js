@@ -12,7 +12,11 @@ class Hints extends Adviser.Rule {
     const { options } = sandbox.ruleContext;
     this.results.forEach(result => {
       const problems = result.problems.filter(
-        problem => problem.severity >= options.minSeverity && !options.ignore.includes(problem.hintId)
+        problem =>
+          typeof options.minSeverity === 'number' &&
+          problem.severity >= options.minSeverity &&
+          Array.isArray(options.ignore) &&
+          !options.ignore.includes(problem.hintId)
       );
 
       report.message = `${problems.length} webhint hint${problems.length > 1 ? 's' : ''} failed`;

@@ -19,6 +19,10 @@ class WebhintPlugin extends Adviser.Plugin {
     }
 
     this.url = settings.url;
+    if (!this.url.match(/^[a-zA-Z]+:\/\//)) {
+      this.url = 'https://' + this.url;
+    }
+
     this.options = settings.options || {};
     this.configPath = settings.configPath;
     this.rules = requireIndex(path.join(__dirname, '/rules'));
