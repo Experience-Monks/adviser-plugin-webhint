@@ -1,4 +1,4 @@
-# Lighthouse Audits
+# Webhint Hints
 
 It will throw an error if the site does not meet or pass the supplied individual lighthouse audits scores.
 
@@ -22,6 +22,7 @@ Use the adviser argument `--verbose` for extra information to see which specific
 Object with string / float pairs. Each key corresponds to the lighthouse audit item. The rule will ensure the audit score meets or surpasses the provided float value or otherwise throw and error.
 
 Example:
+
 ```
 {
   "viewport": 1,

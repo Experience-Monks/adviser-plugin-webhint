@@ -1,49 +1,36 @@
 {
-  "_from": "adviser-plugin-webhint",
-  "_id": "adviser-plugin-webhint@1.0.0",
-  "_inBundle": false,
-  "_integrity": "sha512-K0gWf8gxjGxfLI+K2xxUGzlTFi0KiI/hfM7CLnQL/zJZzbtEG7giJZYdbkGRxcpQQbrzpm8WOt833b/U8QHNPA==",
-  "_location": "/adviser-plugin-webhint",
-  "_phantomChildren": {},
-  "_requested": {
-    "type": "tag",
-    "registry": true,
-    "raw": "adviser-plugin-webhint",
-    "name": "adviser-plugin-webhint",
-    "escapedName": "adviser-plugin-webhint",
-    "rawSpec": "",
-    "saveSpec": null,
-    "fetchSpec": "latest"
+  "name": "adviser-plugin-webhint",
+  "version": "1.0.0",
+  "description": "Plugin for adviser to run webhint audits on a given URL",
+  "main": "src/index.js",
+  "scripts": {
+    "audit": "audit-ci --high",
+    "linters": "eslint \"./src/**/*.js\"",
+    "release": "standard-version",
+    "size": "bundlesize",
+    "test": "jest --watch --verbose",
+    "test-ci": "jest --ci && npm run linters && npm run size && npm run audit"
   },
-  "_requiredBy": [
-    "#USER",
-    "/"
-  ],
-  "_resolved": "https://registry.npmjs.org/adviser-plugin-webhint/-/adviser-plugin-webhint-1.0.0.tgz",
-  "_shasum": "fd64a7407f1c92cd077494d848128ba5d2585603",
-  "_spec": "adviser-plugin-webhint",
-  "_where": "/Users/marcelo/Jam3/adviser-test",
-  "bundleDependencies": false,
-  "bundlesize": [
-    {
-      "path": "src/index.js",
-      "maxSize": "3 kB"
-    }
-  ],
+  "engines": {
+    "node": ">=13.7.0",
+    "npm": ">=6.13.6"
+  },
+  "license": "MIT",
   "dependencies": {
     "adviser": "^0.7.1",
+    "hint": "^6.0.3",
     "is-number": "^7.0.0",
     "is-url": "^1.2.4",
     "requireindex": "^1.2.0"
   },
-  "deprecated": false,
-  "description": "Plugin for adviser to run webhint audits on a given URL",
   "devDependencies": {
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-conventional": "^8.2.0",
+    "@hint/configuration-web-recommended": "^8.0.2",
     "audit-ci": "1.3.1",
     "babel-eslint": "^10.0.3",
     "bundlesize": "^0.18.0",
+    "chalk": "^3.x",
     "envinfo": "^7.4.0",
     "eslint": "^6.6.0",
     "eslint-config-jam3": "^2.0.1",
@@ -61,10 +48,6 @@
     "prettier": "^1.18.2",
     "standard-version": "^7.0.0"
   },
-  "engines": {
-    "node": ">=13.7.0",
-    "npm": ">=6.13.6"
-  },
   "husky": {
     "hooks": {
       "pre-commit": "echo 'Pre-commit checks...' && lint-staged",
@@ -72,6 +55,12 @@
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
+  "bundlesize": [
+    {
+      "path": "src/index.js",
+      "maxSize": "3 kB"
+    }
+  ],
   "jest": {
     "collectCoverage": true,
     "collectCoverageFrom": [
@@ -79,7 +68,6 @@
       "!**/node_modules/**"
     ]
   },
-  "license": "MIT",
   "lint-staged": {
     "src/**/*.js": [
       "eslint --fix",
@@ -92,19 +80,12 @@
       "git add"
     ]
   },
-  "main": "src/index.js",
-  "name": "adviser-plugin-webhint",
-  "peerDependencies": {
-    "hint": "^6.x",
-    "chalk": "^3.x"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jam3/adviser-plugin-webhint.git"
   },
-  "scripts": {
-    "audit": "audit-ci --high",
-    "linters": "eslint \"./src/**/*.js\"",
-    "release": "standard-version",
-    "size": "bundlesize",
-    "test": "jest --watch --verbose",
-    "test-ci": "jest --ci && npm run linters && npm run size && npm run audit"
+  "bugs": {
+    "url": "https://github.com/Jam3/adviser-plugin-webhint/issues"
   },
-  "version": "1.0.0"
+  "homepage": "https://github.com/Jam3/adviser-plugin-webhint#readme"
 }
