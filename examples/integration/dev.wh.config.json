@@ -1,4 +1,5 @@
 {
+  "connector": "jsdom",
   "extends": ["web-recommended"],
   "formatters": []
 }
