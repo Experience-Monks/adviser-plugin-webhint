@@ -42,7 +42,6 @@ class WebhintPlugin extends Adviser.Plugin {
     }
 
     try {
-      console.log(this.url);
       const webhint = Analyzer.create({
         extends: ['web-recommended'],
         formatters: []
