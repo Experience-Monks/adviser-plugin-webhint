@@ -5,27 +5,41 @@ class Hints extends Adviser.Rule {
   constructor(context) {
     super(context);
     this.results = context.shared;
+
+    if (this.context.options.minSeverity) {
+      if (typeof this.context.options.minSeverity !== 'number') {
+        throw new Error(`Wrong "minSeverity" options, should be a number`);
+      } else if (this.context.options.minSeverity < 0 || this.context.options.minSeverity > 5) {
+        throw new Error(`Wrong "minSeverity" options, should be within the range 1 - 5`);
+      }
+    }
+
+    if (this.context.options.ignore && !Array.isArray(this.context.options.ignore)) {
+      throw new Error(`Wrong "ignore" argument, an array is expected`);
+    }
+
+    this.minSeverity = this.context.options.minSeverity || 0;
+    this.ignore = this.context.options.ignore || [];
   }
 
   async run(sandbox) {
     const report = {};
-    const { options } = sandbox.ruleContext;
     this.results.forEach(result => {
       const problems = result.problems.filter(
-        problem =>
-          typeof options.minSeverity === 'number' &&
-          problem.severity >= options.minSeverity &&
-          Array.isArray(options.ignore) &&
-          !options.ignore.includes(problem.hintId)
+        problem => problem.severity >= this.minSeverity && !this.ignore.includes(problem.hintId)
       );
 
       report.message = `${problems.length} webhint hint${problems.length > 1 ? 's' : ''} failed`;
 
+      let verboseOutput = '\n ';
       problems.forEach(problem => {
-        report.verbose += `${chalk.bold(problem.hintId)}:\n\t${problem.message}\n\tSeverity:${chalk.bold(
-          problem.severity
-        )}\n\n  `;
+        verboseOutput += `
+  ${chalk.bold(problem.hintId)}:
+    Message: ${problem.message}
+    Severity: ${problem.severity}
+    Resource: ${problem.resource}\n\n `;
       });
+      report.verbose = `Failed hints:${verboseOutput.trimEnd()}`;
     });
     sandbox.report(report);
   }

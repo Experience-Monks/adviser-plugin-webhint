@@ -6,9 +6,7 @@ const fs = require('fs');
 const requireIndex = require('requireindex');
 const isURL = require('is-url');
 const Adviser = require('adviser');
-const Webhint = require('hint');
-
-const { Analyzer } = Webhint;
+const Analyzer = require('hint').Analyzer;
 
 class WebhintPlugin extends Adviser.Plugin {
   constructor(settings) {
@@ -19,10 +17,6 @@ class WebhintPlugin extends Adviser.Plugin {
     }
 
     this.url = settings.url;
-    if (!this.url.match(/^[a-zA-Z]+:\/\//)) {
-      this.url = 'https://' + this.url;
-    }
-
     this.options = settings.options || {};
     this.configPath = settings.configPath;
     this.rules = requireIndex(path.join(__dirname, '/rules'));
@@ -47,6 +41,7 @@ class WebhintPlugin extends Adviser.Plugin {
     try {
       const webhint = Analyzer.create(config, this.options);
       const results = await webhint.analyze(this.url, this.options);
+      webhint.close();
 
       if (!results.length) {
         throw new Error('No results returned.');

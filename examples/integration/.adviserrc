@@ -6,14 +6,14 @@
     "webhint/hints": [
       "error",
       {
-        ignore: [],
-        minSeverity: 3,
+        "ignore": [],
+        "minSeverity": 3
       }
     ]
   },
   "settings": {
     "webhint": {
-      "url": "www.google.com",
+      "url": "http://localhost:8081",
       "configPath": "dev.wh.config.json"
     }
   }

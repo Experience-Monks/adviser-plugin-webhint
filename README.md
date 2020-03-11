@@ -1,4 +1,4 @@
-# adviser-plugin-lighthouse
+# adviser-plugin-webhint
 
 Plugin for adviser to run webhint hints checking on a given URL
 
