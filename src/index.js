@@ -40,14 +40,15 @@ class WebhintPlugin extends Adviser.Plugin {
 
     try {
       const webhint = Analyzer.create(config, this.options);
-      const results = await webhint.analyze(this.url, this.options);
+      const analyzerResult = await webhint.analyze(this.url, this.options);
       webhint.close();
 
-      if (!results) {
+      if (!analyzerResult || !analyzerResult.length) {
+        // It should throw at least one Analyzer Result object
         throw new Error('No results returned.');
       }
 
-      context.addShareableData(results);
+      context.addShareableData(analyzerResult[0].problems);
     } catch (error) {
       throw new Error(`Webhint couldn't run, ${error}`);
     }

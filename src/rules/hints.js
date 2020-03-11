@@ -4,7 +4,7 @@ const chalk = require('chalk');
 class Hints extends Adviser.Rule {
   constructor(context) {
     super(context);
-    this.results = context.shared;
+    this.problems = context.shared;
 
     if (this.context.options.minSeverity) {
       if (typeof this.context.options.minSeverity !== 'number') {
@@ -24,15 +24,16 @@ class Hints extends Adviser.Rule {
 
   async run(sandbox) {
     const report = {};
-    this.results.forEach(result => {
-      const problems = result.problems.filter(
-        problem => problem.severity >= this.minSeverity && !this.ignore.includes(problem.hintId)
-      );
 
-      report.message = `${problems.length} webhint hint${problems.length > 1 ? 's' : ''} failed`;
+    const filteredProblems = this.problems.filter(
+      problem => problem.severity >= this.minSeverity && !this.ignore.includes(problem.hintId)
+    );
+
+    if (filteredProblems.length > 0) {
+      report.message = `${filteredProblems.length} webhint hint${filteredProblems.length > 1 ? 's' : ''} failed`;
 
       let verboseOutput = '\n ';
-      problems.forEach(problem => {
+      filteredProblems.forEach(problem => {
         verboseOutput += `
   ${chalk.bold(problem.hintId)}:
     Message: ${problem.message}
@@ -40,8 +41,9 @@ class Hints extends Adviser.Rule {
     Resource: ${problem.resource}\n\n `;
       });
       report.verbose = `Failed hints:${verboseOutput.trimEnd()}`;
-    });
-    sandbox.report(report);
+
+      sandbox.report(report);
+    }
   }
 }
 
