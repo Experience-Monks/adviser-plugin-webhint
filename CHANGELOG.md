@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.1](https://github.com/Jam3/adviser-plugin-webhint/compare/v1.0.0...v1.0.1) (2020-03-11)
+
+
+### Bug Fixes
+
+* hints doesn't pass if there is no results ([6e173ef](https://github.com/Jam3/adviser-plugin-webhint/commit/6e173ef209321fe62e500b62b14f48b4264f012f))
+* remove error returns for 0 results ([b889f86](https://github.com/Jam3/adviser-plugin-webhint/commit/b889f86a329d5df943285221909e2f52ec4b1d5c))
+
 ## 1.0.0 (2020-03-11)
 
 
