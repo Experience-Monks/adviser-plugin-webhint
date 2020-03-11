@@ -43,7 +43,7 @@ class WebhintPlugin extends Adviser.Plugin {
       const results = await webhint.analyze(this.url, this.options);
       webhint.close();
 
-      if (!results.length) {
+      if (!results) {
         throw new Error('No results returned.');
       }
 
