@@ -1,6 +1,6 @@
 {
   "name": "adviser-plugin-webhint",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Plugin for adviser to run webhint audits on a given URL",
   "main": "src/index.js",
   "scripts": {
